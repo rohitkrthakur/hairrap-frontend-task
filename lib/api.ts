@@ -20,10 +20,23 @@ export const createBooking = async (payload: {
   userId: string;
   serviceId: string;
   serviceName: string;
-  salonName?: string; // ✅ ADD THIS LINE
+  salonName?: string;
+  salonImage?: string;
+  salonLocation?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  gender?: string;
+  stylist?: string;
+  preferredGender?: string;
+  serviceCategory?: string;
   date: string;
   time: string;
   note?: string;
+  price?: number;
+  originalPrice?: number;
+  discount?: number;
 }) => {
   const res = await api.post("/bookings", payload);
   return res.data;

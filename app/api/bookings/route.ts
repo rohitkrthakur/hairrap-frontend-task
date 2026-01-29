@@ -17,11 +17,39 @@ export async function POST(req: Request) {
     userId: body.userId,
     serviceId: body.serviceId,
     serviceName: body.serviceName,
-    salonName: body.salonName, // ✅ ADD THIS LINE
+    
+    // Salon details
+    salonName: body.salonName,
+    salonImage: body.salonImage,
+    salonLocation: body.salonLocation,
+    
+    // User details
+    firstName: body.firstName,
+    lastName: body.lastName,
+    email: body.email,
+    phone: body.phone,
+    
+    // Booking preferences
+    gender: body.gender,
+    stylist: body.stylist,
+    preferredGender: body.preferredGender,
+    serviceCategory: body.serviceCategory,
+    
+    // Date & time
     date: body.date,
     time: body.time,
     note: body.note,
+    
+    // Pricing
+    price: body.price,
+    originalPrice: body.originalPrice,
+    discount: body.discount,
+    
+    // Status
     status: "PENDING",
+    
+    // Timestamp
+    createdAt: new Date().toISOString(),
   };
 
   bookings.push(newBooking);
