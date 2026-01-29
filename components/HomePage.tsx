@@ -181,7 +181,7 @@ export default function HomePage() {
             <div className="w-full lg:w-1/2">
               <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] rounded-lg overflow-hidden">
                 <Image
-                  src="/assets/HomeImg.jpg"
+                  src="/assets/homeImg.jpg"
                   alt="Salon Interior"
                   fill
                   className="object-cover"
