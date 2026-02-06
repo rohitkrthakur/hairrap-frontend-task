@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Lock, UserPlus, X } from "lucide-react";
+import { ChevronDown, Lock, UserPlus, X, MessageCircle } from "lucide-react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import Image from "next/image";
 
@@ -12,6 +12,7 @@ export default function Navbar() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
+    { name: "AI Assistant", href: "/assistant" }, // NEW
     { name: "Bookings", href: "/bookings" },
     { name: "Contact", href: "/contact" },
   ];
@@ -37,10 +38,19 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors"
+                className={`flex items-center gap-1 transition-colors ${
+                  item.name === "AI Assistant"
+                    ? "text-[#C9507F] hover:text-[#b8467] font-semibold"
+                    : "text-gray-700 hover:text-gray-900"
+                }`}
               >
+                {item.name === "AI Assistant" && (
+                  <MessageCircle size={16} />
+                )}
                 {item.name}
-                <ChevronDown size={16} className="text-gray-500" />
+                {item.name !== "AI Assistant" && (
+                  <ChevronDown size={16} className="text-gray-500" />
+                )}
               </Link>
             ))}
           </nav>
@@ -94,10 +104,21 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                className={`flex items-center justify-between py-3 px-4 rounded-lg transition-colors ${
+                  item.name === "AI Assistant"
+                    ? "bg-gradient-to-r from-purple-50 to-pink-50 text-[#C9507F] font-semibold"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
               >
-                <span className="font-medium">{item.name}</span>
-                <ChevronDown size={16} className="text-gray-500" />
+                <div className="flex items-center gap-2">
+                  {item.name === "AI Assistant" && (
+                    <MessageCircle size={18} />
+                  )}
+                  <span className="font-medium">{item.name}</span>
+                </div>
+                {item.name !== "AI Assistant" && (
+                  <ChevronDown size={16} className="text-gray-500" />
+                )}
               </Link>
             ))}
           </nav>
