@@ -47,6 +47,8 @@ export default function AIAssistantPage() {
   const [isTyping, setIsTyping] = useState(false);
   const [bookingState, setBookingState] = useState<BookingState>({ step: 'idle' });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // ✅ FIX 1: Add container ref
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const chatHistory: ChatHistory[] = [
@@ -115,8 +117,15 @@ export default function AIAssistantPage() {
     },
   ];
 
+  // ✅ FIX 2: Update scroll function to only scroll the container
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesContainerRef.current) {
+      requestAnimationFrame(() => {
+        if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
+      });
+    }
   };
 
   useEffect(() => {
@@ -462,8 +471,15 @@ export default function AIAssistantPage() {
           </div>
         </div>
 
-        {/* Messages Area - SCROLLABLE ONLY */}
-        <div className="flex-1 overflow-y-auto p-4 lg:p-6">
+        {/* ✅ FIX 3: Messages Area with scroll containment */}
+        <div 
+          ref={messagesContainerRef}
+          className="flex-1 overflow-y-auto overflow-x-hidden p-4 lg:p-6"
+          style={{
+            overscrollBehavior: 'contain',
+            scrollBehavior: 'smooth',
+          }}
+        >
           <div className="max-w-4xl mx-auto">
             {/* Welcome Message - Only when no conversation */}
             {messages.length === 1 && (
